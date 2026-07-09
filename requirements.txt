@@ -1,3 +1,4 @@
 langgraph
 langchain
-google-cloud-aiplatform
+langchain-google-genai
+python-dotenv
