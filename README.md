@@ -1,6 +1,10 @@
-# Email Workflow with LangGraph and Gemini
+# LangGraph Gemini Demos
 
-This project is a small LangGraph demo that processes incoming emails with Gemini.
+This project contains small LangGraph demos that use Gemini.
+
+## Demo 1: Email Workflow
+
+The email workflow processes incoming emails with Gemini.
 It acts like a simple assistant named Alfred:
 
 1. Reads an incoming email.
@@ -18,6 +22,12 @@ It acts like a simple assistant named Alfred:
 - `email_assistant_demo/gemini_client.py` - Gemini model setup and response text handling.
 - `email_assistant_demo/sample_emails.py` - sample legitimate and spam emails used by the demo.
 - `email_assistant_demo/langfuse_tracing_example.py` - optional Langfuse tracing example.
+- `batman_butler_demo/` - a second LangGraph app with a tool-using ReAct-style assistant.
+- `batman_butler_demo/app.py` - local entrypoint for the second demo.
+- `batman_butler_demo/workflow.py` - LangGraph ReAct workflow using an assistant node and tool node.
+- `batman_butler_demo/tools.py` - tools for division and image text extraction.
+- `batman_butler_demo/state.py` - shared agent state for the second demo.
+- `batman_butler_demo/gemini_client.py` - Gemini model setup for the second demo.
 - `requirements.txt` - Python dependencies.
 
 ## Requirements
@@ -52,7 +62,7 @@ GEMINI_MODEL=gemini-2.5-flash
 
 The `.env` file is ignored by Git so your key stays local.
 
-## Run the Demo
+## Run the Email Demo
 
 From the project root:
 
@@ -63,14 +73,27 @@ python -m email_assistant_demo.app
 The script processes one legitimate sample email and one spam sample email. You
 will see Alfred's classification and response draft printed in the terminal.
 
+## Run the Batman Butler Tool Demo
+
+From the project root:
+
+```bash
+python -m batman_butler_demo.app
+```
+
+This demo uses a LangGraph assistant node plus a tool node. The assistant can
+choose tools when needed, such as dividing numbers or extracting text from a
+local image file.
+
 ## Verify Without Calling Gemini
 
 You can check that the code imports and the graph builds without making a live
 model request:
 
 ```bash
-python -m py_compile email_assistant_demo/*.py
+python -m py_compile email_assistant_demo/*.py batman_butler_demo/*.py
 python -c "from email_assistant_demo.email_workflow import create_workflow; create_workflow(); print('workflow ok')"
+python -c "from batman_butler_demo.workflow import create_react_workflow; create_react_workflow(); print('react workflow ok')"
 ```
 
 ## Run With Langfuse Tracing
