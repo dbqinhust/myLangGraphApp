@@ -1,5 +1,5 @@
-from email_workflow import create_initial_state, create_workflow
-from sample_emails import LEGITIMATE_EMAIL, SPAM_EMAIL
+from .email_workflow import create_initial_state, create_workflow
+from .sample_emails import LEGITIMATE_EMAIL, SPAM_EMAIL
 
 
 def process_email(label: str, email: dict) -> None:

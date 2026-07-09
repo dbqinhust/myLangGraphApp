@@ -3,8 +3,8 @@ from typing import Any, Dict
 from langchain_core.messages import HumanMessage
 from langgraph.graph import END, START, StateGraph
 
-from email_state import EmailState
-from gemini_client import create_gemini_model, response_text
+from .email_state import EmailState
+from .gemini_client import create_gemini_model, response_text
 
 
 def create_initial_state(email: Dict[str, Any]) -> EmailState:

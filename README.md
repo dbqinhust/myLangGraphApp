@@ -11,11 +11,13 @@ It acts like a simple assistant named Alfred:
 
 ## Project Structure
 
-- `app.py` - local entrypoint that runs the sample emails through the workflow.
-- `email_workflow.py` - LangGraph nodes, routing, and graph creation.
-- `email_state.py` - shared workflow state definition.
-- `gemini_client.py` - Gemini model setup and response text handling.
-- `sample_emails.py` - sample legitimate and spam emails used by the demo.
+- `email_assistant_demo/` - the complete email workflow demo package.
+- `email_assistant_demo/app.py` - local entrypoint that runs the sample emails through the workflow.
+- `email_assistant_demo/email_workflow.py` - LangGraph nodes, routing, and graph creation.
+- `email_assistant_demo/email_state.py` - shared workflow state definition.
+- `email_assistant_demo/gemini_client.py` - Gemini model setup and response text handling.
+- `email_assistant_demo/sample_emails.py` - sample legitimate and spam emails used by the demo.
+- `email_assistant_demo/langfuse_tracing_example.py` - optional Langfuse tracing example.
 - `requirements.txt` - Python dependencies.
 
 ## Requirements
@@ -55,7 +57,7 @@ The `.env` file is ignored by Git so your key stays local.
 From the project root:
 
 ```bash
-python app.py
+python -m email_assistant_demo.app
 ```
 
 The script processes one legitimate sample email and one spam sample email. You
@@ -67,6 +69,22 @@ You can check that the code imports and the graph builds without making a live
 model request:
 
 ```bash
-python -m py_compile app.py email_state.py gemini_client.py email_workflow.py sample_emails.py
-python -c "from email_workflow import create_workflow; create_workflow(); print('workflow ok')"
+python -m py_compile email_assistant_demo/*.py
+python -c "from email_assistant_demo.email_workflow import create_workflow; create_workflow(); print('workflow ok')"
+```
+
+## Run With Langfuse Tracing
+
+Add your Langfuse credentials to `.env`:
+
+```env
+LANGFUSE_PUBLIC_KEY=your-public-key
+LANGFUSE_SECRET_KEY=your-secret-key
+LANGFUSE_HOST=https://cloud.langfuse.com
+```
+
+Then run:
+
+```bash
+python -m email_assistant_demo.langfuse_tracing_example
 ```

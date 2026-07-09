@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 from langfuse.langchain import CallbackHandler
 
-from email_workflow import create_initial_state, create_workflow
-from sample_emails import LEGITIMATE_EMAIL
+from .email_workflow import create_initial_state, create_workflow
+from .sample_emails import LEGITIMATE_EMAIL
 
 
 load_dotenv()
