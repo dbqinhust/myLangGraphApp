@@ -18,7 +18,7 @@ divide(a: int, b: int) -> float:
 
 def assistant(state: AgentState) -> dict:
     model = create_gemini_model()
-    model_with_tools = model.bind_tools(TOOLS, parallel_tool_calls=False)
+    model_with_tools = model.bind_tools(TOOLS)
     image = state["input_file"]
     system_message = SystemMessage(
         content=(
